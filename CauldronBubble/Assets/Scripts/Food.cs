@@ -8,7 +8,7 @@ public class Food : MonoBehaviour
     private float maxTorque = 10;
     private float spawnRangeLeft = -38;
     private float spawnRangeRight = 30;
-    private float spawnPosY = 80;
+    private float spawnPosY = 65;
     private float spawnPosZ = -3;
 
 
