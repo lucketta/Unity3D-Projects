@@ -865,6 +865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d656fde0229e3648b0df5e412d9b3b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  difficulty: 1
 --- !u!1 &1043111703
 GameObject:
   m_ObjectHideFlags: 0
@@ -1083,6 +1084,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d656fde0229e3648b0df5e412d9b3b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  difficulty: 3
 --- !u!1 &1246762152
 GameObject:
   m_ObjectHideFlags: 0
@@ -1489,6 +1491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d656fde0229e3648b0df5e412d9b3b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  difficulty: 2
 --- !u!1 &1416537250
 GameObject:
   m_ObjectHideFlags: 0

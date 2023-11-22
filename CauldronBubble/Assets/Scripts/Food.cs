@@ -5,6 +5,8 @@ using UnityEngine;
 public class Food : MonoBehaviour
 {
     private Rigidbody foodRb;
+    private GameManager gameManager;
+
     private float maxTorque = 10;
     private float spawnRangeLeft = -38;
     private float spawnRangeRight = 30;
@@ -15,6 +17,8 @@ public class Food : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         foodRb = GetComponent<Rigidbody>();
         foodRb.AddTorque(RandomTorque(), RandomTorque(), RandomTorque(), ForceMode.Impulse);
 
@@ -29,12 +33,29 @@ public class Food : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Destroy(gameObject);
+        if (!gameManager.isGameOver)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
+
+        if (gameObject.CompareTag("Bad Food"))
+        {
+            gameManager.badFoodCounter++;
+            Debug.Log("Bad food counter: " + gameManager.badFoodCounter);
+
+            if (gameManager.badFoodCounter == gameManager.gameOverCount)
+            {
+                Debug.Log("Game Over");
+
+                gameManager.GameOver();
+            }
+        }
+
     }
 
     float RandomTorque()
