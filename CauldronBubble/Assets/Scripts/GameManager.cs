@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI badFoodText;
+    public Button restartButton;
 
     private Timer elapsedTime;
     private float spawnRate = 1.0f;
@@ -75,5 +76,11 @@ public class GameManager : MonoBehaviour
     {
         isGameOver = true;
         gameOverText.gameObject.SetActive(true);
+        restartButton.gameObject.SetActive(true);
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

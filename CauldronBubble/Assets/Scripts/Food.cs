@@ -11,10 +11,9 @@ public class Food : MonoBehaviour
     private GameManager gameManager;
 
     private float maxTorque = 10;
-    private float spawnRangeLeft = -38;
-    private float spawnRangeRight = 30;
-    private float spawnPosY = 65;
-    private float spawnPosZ = -3;
+    private float xSpawnRange = 4.5f;
+    private float spawnPosY = 11.5f;
+    private float spawnPosZ = -1;
     private int scoreValue = 10;
 
 
@@ -79,6 +78,6 @@ public class Food : MonoBehaviour
     Vector3 RandomSpawnPos()
     {
         // calculate a spawnposition thats random along the top of the screen
-        return new Vector3(Random.Range(spawnRangeLeft, spawnRangeRight), spawnPosY, spawnPosZ);
+        return new Vector3(Random.Range(-xSpawnRange, xSpawnRange), spawnPosY, spawnPosZ);
     }
 }
