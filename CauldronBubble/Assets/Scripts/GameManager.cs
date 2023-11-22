@@ -10,19 +10,25 @@ public class GameManager : MonoBehaviour
     public List<GameObject> foods;
     public bool isGameOver;
     public TextMeshProUGUI gameOverText;
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI badFoodText;
 
     private Timer elapsedTime;
     private float spawnRate = 1.0f;
     private float timeLowerBound = 0;
     public int gameOverCount = 3;
     public int badFoodCounter = 0;
+    public int score;
 
     // Start is called before the first frame update
     void Start()
     {
         elapsedTime = GameObject.Find("Timer Text").GetComponent<Timer>();
+        score = 0;
+        badFoodText.text = "Bad: ";
 
         StartCoroutine(SpawnFood());
+        UpdateScore(0);
     }
 
     // Update is called once per frame
@@ -57,6 +63,12 @@ public class GameManager : MonoBehaviour
             int index = Random.Range(0, foods.Count);
             Instantiate(foods[index]);
         }
+    }
+
+    public void UpdateScore(int scoreToAdd)
+    {
+        score += scoreToAdd;
+        scoreText.text = "Score: " + score;
     }
 
     public void GameOver()

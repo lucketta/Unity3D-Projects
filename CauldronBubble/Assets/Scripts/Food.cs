@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class Food : MonoBehaviour
 {
@@ -12,6 +15,7 @@ public class Food : MonoBehaviour
     private float spawnRangeRight = 30;
     private float spawnPosY = 65;
     private float spawnPosZ = -3;
+    private int scoreValue = 10;
 
 
     // Start is called before the first frame update
@@ -46,6 +50,12 @@ public class Food : MonoBehaviour
         if (gameObject.CompareTag("Bad Food"))
         {
             gameManager.badFoodCounter++;
+
+            if (!gameManager.isGameOver)
+            {
+                gameManager.badFoodText.text += "X";
+            }
+
             Debug.Log("Bad food counter: " + gameManager.badFoodCounter);
 
             if (gameManager.badFoodCounter == gameManager.gameOverCount)
@@ -55,7 +65,10 @@ public class Food : MonoBehaviour
                 gameManager.GameOver();
             }
         }
-
+        else if (!gameManager.isGameOver)
+        {
+            gameManager.UpdateScore(scoreValue);
+        }
     }
 
     float RandomTorque()
