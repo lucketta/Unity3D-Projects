@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     public float cursorPosX;
     public float cursorPosY;
     public float cursorPosZ;
-    public float posZOffset = 3;
+    public float posZOffset = 2;
 
     public float playerPosX;
     public float playerPosY;
@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
         // Start is called before the first frame update
     void Start()
     {
-        
+        Debug.Log("READS Player Controller");
     }
 
     // Update is called once per frame
