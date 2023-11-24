@@ -15,7 +15,7 @@ public class Food : MonoBehaviour
     private GameManager gameManager;
 
     private float maxTorque = 1;
-    private float xSpawnRange = 4.5f;
+    private float xSpawnRange = 4.3f;
     private float spawnPosY = 11.5f;
     private float spawnPosZ = -1;
     private int scoreValue = 10;
