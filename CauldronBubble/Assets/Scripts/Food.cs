@@ -10,12 +10,11 @@ public class Food : MonoBehaviour
     private Rigidbody foodRb;
     private GameManager gameManager;
 
-    private float maxTorque = 10;
+    private float maxTorque = 1;
     private float xSpawnRange = 4.5f;
     private float spawnPosY = 11.5f;
     private float spawnPosZ = -1;
     private int scoreValue = 10;
-
 
     // Start is called before the first frame update
     void Start()
@@ -23,20 +22,14 @@ public class Food : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         foodRb = GetComponent<Rigidbody>();
-        foodRb.AddTorque(RandomTorque(), RandomTorque(), RandomTorque(), ForceMode.Impulse);
+        foodRb.AddTorque(0, 0, RandomTorque(), ForceMode.Impulse);
 
         transform.position = RandomSpawnPos();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnMouseDown()
     {
-        if (!gameManager.isGameOver)
+        if (gameManager.isGameActive)
         {
             Destroy(gameObject);
         }
@@ -46,25 +39,17 @@ public class Food : MonoBehaviour
     {
         Destroy(gameObject);
 
-        if (gameObject.CompareTag("Bad Food"))
+        if (gameObject.CompareTag("Bad Food") && gameManager.isGameActive)
         {
             gameManager.badFoodCounter++;
-
-            if (!gameManager.isGameOver)
-            {
-                gameManager.badFoodText.text += "X";
-            }
-
-            Debug.Log("Bad food counter: " + gameManager.badFoodCounter);
-
+            gameManager.badFoodText.text += "X";
+            
             if (gameManager.badFoodCounter == gameManager.gameOverCount)
             {
-                Debug.Log("Game Over");
-
                 gameManager.GameOver();
             }
         }
-        else if (!gameManager.isGameOver)
+        else if (gameManager.isGameActive)
         {
             gameManager.UpdateScore(scoreValue);
         }

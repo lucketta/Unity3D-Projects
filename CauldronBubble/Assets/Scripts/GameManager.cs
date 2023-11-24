@@ -8,13 +8,13 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public List<GameObject> foods;
-    public bool isGameOver;
+    public bool isGameActive;
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI badFoodText;
     public Button restartButton;
 
-    private Timer elapsedTime;
+    private Timer timerComponent;
     private float spawnRate = 1.0f;
     private float timeLowerBound = 0;
     public int gameOverCount = 3;
@@ -24,41 +24,40 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        elapsedTime = GameObject.Find("Timer Text").GetComponent<Timer>();
+        timerComponent = GameObject.Find("Timer Text").GetComponent<Timer>();
         score = 0;
-        badFoodText.text = "Bad: ";
-
-        StartCoroutine(SpawnFood());
         UpdateScore(0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (elapsedTime.elapsedTimeSeconds == 0)
+        if (timerComponent.elapsedTimeSeconds == 0)
         {
             timeLowerBound = 0;
         }
 
-        if (elapsedTime.elapsedTimeSeconds > timeLowerBound && elapsedTime.elapsedTimeSeconds % 15 == 0 && spawnRate > .25f)
+        if (timerComponent.elapsedTimeSeconds > timeLowerBound && timerComponent.elapsedTimeSeconds % 15 == 0 && spawnRate > .25f)
         {
-            //Debug.Log("Elapsed Time: " + elapsedTime.elapsedTimeSeconds);
+            //Debug.Log("Elapsed Time: " + timerComponent.elapsedTimeSeconds);
 
-            timeLowerBound = elapsedTime.elapsedTimeSeconds;
+            timeLowerBound = timerComponent.elapsedTimeSeconds;
             //Debug.Log("lower bound Time: " + timeLowerBound);
             spawnRate -= .25f;
             //Debug.Log("spawnRate after: " + spawnRate);
         }
     }
 
-    void StartGame()
+    public void StartGame()
     {
-
+        timerComponent.StartTimer();
+        isGameActive = true;
+        StartCoroutine(SpawnFood());
     }
 
     IEnumerator SpawnFood()
     {
-        while (!isGameOver)
+        while (isGameActive)
         {
             yield return new WaitForSeconds(spawnRate);
             int index = Random.Range(0, foods.Count);
@@ -74,9 +73,10 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        isGameOver = true;
+        isGameActive = false;
         gameOverText.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(true);
+        timerComponent.StopTimer();
     }
 
     public void RestartGame()
