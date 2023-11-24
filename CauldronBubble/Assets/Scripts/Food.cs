@@ -7,6 +7,10 @@ using UnityEngine.UI;
 
 public class Food : MonoBehaviour
 {
+    public AudioClip goodSound;
+    public AudioClip badSound;
+    public AudioClip destroySound;
+
     private Rigidbody foodRb;
     private GameManager gameManager;
 
@@ -31,6 +35,7 @@ public class Food : MonoBehaviour
     {
         if (gameManager.isGameActive)
         {
+            gameManager.ingredientSound.PlayOneShot(destroySound, 1.0f);
             Destroy(gameObject);
         }
     }
@@ -48,10 +53,13 @@ public class Food : MonoBehaviour
             {
                 gameManager.GameOver();
             }
+
+            gameManager.ingredientSound.PlayOneShot(badSound, 1.0f);
         }
         else if (gameManager.isGameActive)
         {
             gameManager.UpdateScore(scoreValue);
+            gameManager.ingredientSound.PlayOneShot(goodSound, .25f);
         }
     }
 

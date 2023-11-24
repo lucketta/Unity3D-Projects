@@ -16,16 +16,11 @@ public class PlayerController : MonoBehaviour
         // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("READS Player Controller");
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        cursorPos.z = Camera.main.transform.position.z + Camera.main.nearClipPlane;
-        transform.position = cursorPos;*/
-
         cursorPos = Input.mousePosition;
         cursorPos.z = Camera.main.nearClipPlane + posZOffset;
         cursorPosX = cursorPos.x;

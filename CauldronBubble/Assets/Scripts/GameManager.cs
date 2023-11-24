@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI badFoodText;
     public Button restartButton;
+    public AudioSource ingredientSound;
+    public AudioClip gameOverSound;
 
     private Timer timerComponent;
     private float spawnRate = 1.0f;
@@ -25,6 +27,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         timerComponent = GameObject.Find("Timer Text").GetComponent<Timer>();
+        ingredientSound = GetComponent<AudioSource>();
         score = 0;
         UpdateScore(0);
     }
@@ -52,6 +55,7 @@ public class GameManager : MonoBehaviour
     {
         timerComponent.StartTimer();
         isGameActive = true;
+        ingredientSound.Play();
         StartCoroutine(SpawnFood());
     }
 
@@ -76,6 +80,8 @@ public class GameManager : MonoBehaviour
         isGameActive = false;
         gameOverText.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(true);
+        ingredientSound.Stop();
+        ingredientSound.PlayOneShot(gameOverSound, .5f);
         timerComponent.StopTimer();
     }
 
